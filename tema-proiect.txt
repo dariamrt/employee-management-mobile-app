@@ -1,0 +1,5 @@
+Tema aplicației mobile: gestiunea angajatilor unei firme
+Ce poti face cu ea:
+- vizualizarea si actualizarea datelor despre angajați;
+- oferirea de feedback pentru angajati;
+- gestionarea de conturi cu diverse roluri si permisiuni(rolurile la care m-am gandit: Admin, HR, Tehnic, Normal)
