@@ -7,6 +7,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,5 +71,32 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "The department can't be contacted yet! :(", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.itChangePassword) {
+            Intent historyIntent = new Intent(MainActivity.this, ChangePasswordActivity.class);
+            startActivity(historyIntent);
+            return true;
+        } else if (id == R.id.itSettings) {
+            Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        } else if (id == R.id.itEditProfile) {
+            Intent historyIntent = new Intent(MainActivity.this, EditProfileActivity.class);
+            startActivity(historyIntent);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 }

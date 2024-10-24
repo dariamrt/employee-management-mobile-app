@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/itEditProfile"
+        android:title="Edit profile" />
+    <item
+        android:id="@+id/itChangePassword"
+        android:title="Change password" />
+    <item
+        android:id="@+id/itSettings"
+        android:title="Settings" />
+</menu>
