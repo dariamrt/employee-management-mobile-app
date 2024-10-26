@@ -5,14 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
+    tools:context=".activities.MainActivity">
 
     <TextView
         android:id="@+id/tvHelloUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello, User!"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -22,12 +23,11 @@
 
     <ImageView
         android:id="@+id/ivUser"
-        android:layout_width="200dp"
-        android:layout_height="217dp"
+        android:layout_width="117dp"
+        android:layout_height="108dp"
         android:layout_marginTop="35dp"
         app:layout_constraintBottom_toTopOf="@+id/spnDepartment"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvHelloUser"
         app:layout_constraintVertical_bias="0.0"
@@ -39,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Choose a department to get in contact with:"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,26 +49,27 @@
     <Spinner
         android:id="@+id/spnDepartment"
         android:layout_width="420dp"
-        android:layout_height="15dp"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.477" />
+        app:layout_constraintVertical_bias="0.336" />
+
+    <!-- Choose Department Button outside of ListView -->
 
     <Button
         android:id="@+id/btnChooseDepartment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="364dp"
         android:text="Choose!"
-        app:layout_constraintBottom_toTopOf="@+id/btnSettings"
+        app:layout_constraintBottom_toTopOf="@+id/lvUserInfo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117" />
+        app:layout_constraintTop_toBottomOf="@+id/spnDepartment"
+        app:layout_constraintVertical_bias="0.1" />
 
     <Button
         android:id="@+id/btnSettings"
@@ -90,5 +92,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.948" />
+
+    <ListView
+        android:id="@+id/lvUserInfo"
+        android:layout_width="356dp"
+        android:layout_height="214dp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.824" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
