@@ -7,15 +7,38 @@ public class User implements Serializable {
     private String lastName;
     private String email;
     private String password;
+    private double salary;
+    private Position position;
 
-    public User(String firstName, String lastName, String email, String password) {
+    public User(String firstName, String lastName, String email, String password, double salary, Position position) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.salary = salary;
+        this.position = position;
     }
 
-    // getteri + setteri
+    public User(String firstName, String lastName, String email, String password) {
+        this(firstName, lastName, email, password, 0, new Position("No Position", new Department("Unassigned", "General Department")));
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -54,6 +77,8 @@ public class User implements Serializable {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", salary=" + salary +
+                ", position=" + (position != null ? position.getTitle() : "N/A") +
                 '}';
     }
 }

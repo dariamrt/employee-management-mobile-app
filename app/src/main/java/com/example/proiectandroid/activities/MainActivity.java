@@ -20,6 +20,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.proiectandroid.R;
 import com.example.proiectandroid.models.User;
+import com.example.proiectandroid.utils.UserManager;
+import com.example.proiectandroid.utils.UserSessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,8 +124,14 @@ public class MainActivity extends AppCompatActivity {
             startActivity(settingsIntent);
             return true;
         } else if (id == R.id.itEditProfile) {
-            Intent historyIntent = new Intent(MainActivity.this, EditProfileActivity.class);
-            startActivity(historyIntent);
+            Intent editProfileIntent = new Intent(MainActivity.this, EditProfileActivity.class);
+            startActivity(editProfileIntent);
+            return true;
+        } else if (id == R.id.itViewProfile) {
+            User currentUser = UserSessionManager.getCurrentUser();
+            Intent profileIntent = new Intent(MainActivity.this, UserDetailsActivity.class);
+            profileIntent.putExtra("user", currentUser);
+            startActivity(profileIntent);
             return true;
         } else {
             return super.onOptionsItemSelected(item);

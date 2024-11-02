@@ -1,6 +1,8 @@
 package com.example.proiectandroid.models;
 
-public class Department {
+import java.io.Serializable;
+
+public class Department implements Serializable {
     private int id;
     private String name;
     private String description;
@@ -11,7 +13,6 @@ public class Department {
         this.description = description;
     }
 
-    // constructor fara id - ID AUTOGENERAT
     public Department(String name, String description) {
         this.name = name;
         this.description = description;

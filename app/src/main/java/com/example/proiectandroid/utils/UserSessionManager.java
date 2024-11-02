@@ -4,9 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import com.example.proiectandroid.activities.LoginPageActivity;
+import com.example.proiectandroid.models.User;
 
 public class UserSessionManager {
-    // de testat etc dupa ce implementez conexiunea cu BD
+    // de modificat dupa ce implementez cu BD
     private static final String PREF_NAME = "user_session";
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
     private static final String KEY_USER_EMAIL = "userEmail";
@@ -14,6 +15,15 @@ public class UserSessionManager {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private Context context;
+    private static User currentUser;
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(User currentUser) {
+        UserSessionManager.currentUser = currentUser;
+    }
 
     public UserSessionManager(Context context) {
         this.context = context;
@@ -55,6 +65,7 @@ public class UserSessionManager {
         Intent i = new Intent(context, LoginPageActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
+
     }
 }
 

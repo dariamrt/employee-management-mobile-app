@@ -59,6 +59,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 User user = new User(firstName, lastName, email, password);
                 UserManager.addUser(user);
 
+
 //                // toast cu datele userului create -> pt testare l-am fct
 //                Toast.makeText(CreateAccountActivity.this,
 //                        "Account created: \n" + user.getFirstName() + "\n" + user.getLastName() + "\n" + user.getEmail(), Toast.LENGTH_LONG).show();
