@@ -65,7 +65,6 @@ public class UserSessionManager {
         Intent i = new Intent(context, LoginPageActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
-
     }
 }
 

@@ -1,6 +1,7 @@
 package com.example.proiectandroid.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,7 @@ public class LoginPageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login_page);
@@ -56,8 +58,35 @@ public class LoginPageActivity extends AppCompatActivity {
                 if (UserManager.doesUserExist(email)) {
                     // daca exista => autentficiare, altfel toast
                     User user = UserManager.authenticateUser(email, password);
+
+                    // SHARED PREF DECLARARE
+                    SharedPreferences loginPrefs = getSharedPreferences("UserLoginPreferences", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = loginPrefs.edit();
+                    editor.putBoolean("isLoggedIn", true);
+                    editor.apply();
+
+                    SharedPreferences rolePrefs = getSharedPreferences("UserRolePreferences", MODE_PRIVATE);
+                    editor = rolePrefs.edit();
+                    editor.putBoolean("isAdmin", user.getIsAdmin());
+                    editor.putString("currentUserId", user.getId());
+                    editor.apply();
+
+                    SharedPreferences settingsPrefs = getSharedPreferences("UserSettingsPreferences", MODE_PRIVATE);
+                    editor = settingsPrefs.edit();
+                    editor.putString("theme", "dark");
+                    editor.apply();
+                    // END -> SHARED PREF DECLARARE
+
+
                     if (user != null) {
-                        Intent intent = new Intent(LoginPageActivity.this, MainActivity.class);
+                        Intent intent;
+                        intent = new Intent(LoginPageActivity.this, AdminPanel.class);
+                        if(user.getIsAdmin()){
+                           ;
+
+                        } else{
+                            intent = new Intent(LoginPageActivity.this, MainActivity.class);
+                        }
                         intent.putExtra("user", user);
                         startActivity(intent);
                         finish();

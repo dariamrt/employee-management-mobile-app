@@ -13,13 +13,25 @@
         android:theme="@style/Theme.ProiectAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".activities.AddTaskActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.TaskManagerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AddUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AdminPanel"
+            android:exported="false" />
+        <activity
             android:name=".activities.UserDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".activities.CreateAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.EditProfileActivity"
+            android:name=".activities.EditUserActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ChangePasswordActivity"
