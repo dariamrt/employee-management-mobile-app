@@ -10,10 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proiectandroid.R;
-import com.example.proiectandroid.models.Department;
-import com.example.proiectandroid.models.Position;
+import com.example.proiectandroid.database.AppDatabase;
 import com.example.proiectandroid.models.User;
-import com.example.proiectandroid.utils.UserManager;
 
 public class AddUserActivity extends AppCompatActivity {
 
@@ -43,26 +41,29 @@ public class AddUserActivity extends AppCompatActivity {
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
                 String salaryText = etSalary.getText().toString();
-                String positionName = etPosition.getText().toString();
+                String positionIdText = etPosition.getText().toString();
                 boolean isAdmin = cbIsAdmin.isChecked();
 
-                if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || salaryText.isEmpty() || positionName.isEmpty()) {
-                    Toast.makeText(AddUserActivity.this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
+                if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || salaryText.isEmpty() || positionIdText.isEmpty()) {
+                    Toast.makeText(AddUserActivity.this, "Please fill all the fields!!!!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 double salary;
+                int positionId;
                 try {
                     salary = Double.parseDouble(salaryText);
+                    positionId = Integer.parseInt(positionIdText);
                 } catch (NumberFormatException e) {
-                    Toast.makeText(AddUserActivity.this, "Invalid salary format", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddUserActivity.this, "Invalid salary or position ID format :(", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Position position = new Position(positionName, new Department("General", "Generic department description"));
-                User user = new User(firstName, lastName, email, password, salary, position);
+                User user = new User(firstName, lastName, email, password, salary, positionId);
                 user.setIsAdmin(isAdmin);
-                UserManager.addUser(user);
+
+                AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+                db.getUserDAO().insertUser(user);
 
                 Toast.makeText(AddUserActivity.this, "User added successfully!", Toast.LENGTH_SHORT).show();
                 finish();

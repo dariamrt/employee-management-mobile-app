@@ -1,43 +1,45 @@
 package com.example.proiectandroid.models;
 
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 import java.util.UUID;
-
+@Entity(tableName = "users",
+        foreignKeys = @ForeignKey(
+                entity = Position.class,
+                parentColumns = "id",
+                childColumns = "positionId",
+                onDelete = ForeignKey.CASCADE
+        )
+)
 public class User implements Serializable {
-    private String id;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
     private double salary;
-    private Position position;
+    private int positionId;
     private Boolean isAdmin;
 
-    public User(String firstName, String lastName, String email, String password, double salary, Position position) {
-        this.id = UUID.randomUUID().toString();
+    public User(String firstName, String lastName, String email, String password, double salary, int positionId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.salary = salary;
-        this.position = position;
+        this.positionId = positionId;
         this.isAdmin = false;
     }
 
-    public User(String firstName, String lastName, String email, String password) {
-        this(firstName, lastName, email, password, 0, new Position("No Position", new Department("Unassigned", "General Department")));
-    }
-
-    public User(String firstName, String lastName, String email, String password, Boolean isAdmin) {
-        this(firstName, lastName, email, password, 21000, new Position("Admin", new Department("Tech Dep", "Admin")));
-        this.isAdmin = isAdmin;
-    }
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -81,12 +83,12 @@ public class User implements Serializable {
         this.salary = salary;
     }
 
-    public Position getPosition() {
-        return position;
+    public int getPositionId() {
+        return positionId;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setPosition(int positionId) {
+        this.positionId = positionId;
     }
 
     public Boolean getIsAdmin() {
@@ -99,8 +101,15 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User " + id +
-                ": " + lastName + ", " + firstName + ", " + email;
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", salary=" + salary +
+                ", positionId=" + positionId +
+                ", isAdmin=" + isAdmin +
+                '}';
     }
-
 }

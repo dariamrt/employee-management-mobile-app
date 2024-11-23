@@ -1,20 +1,16 @@
 package com.example.proiectandroid.activities;
 
-import static com.example.proiectandroid.adapters.UserAdapter.formatBold;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.StyleSpan;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proiectandroid.R;
-import com.example.proiectandroid.adapters.DepartmentAdapter;
-import com.example.proiectandroid.adapters.PositionAdapter;
+import com.example.proiectandroid.database.AppDatabase;
 import com.example.proiectandroid.models.User;
+import com.example.proiectandroid.utils.UserSessionManager;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -37,39 +33,14 @@ public class UserDetailsActivity extends AppCompatActivity {
         departmentTextView = findViewById(R.id.departmentTextView);
         ivPositionIcon = findViewById(R.id.ivPositionIcon);
 
-        Intent intent = getIntent();
-        User user = (User) intent.getSerializableExtra("user");
-
-        if (user != null) {
-            // text FORMATAT cu bold pe continut pt campurile prenume, nume, email
-            firstNameTextView.setText(formatBold("First Name: ", user.getFirstName()));
-            lastNameTextView.setText(formatBold("Last Name: ", user.getLastName()));
-            emailTextView.setText(formatBold("Email: ", user.getEmail()));
-
-            // am FORMATAT salariul numar sa fie afisat in RON si bold pe continut
-            String salaryFormatted = NumberFormat.getCurrencyInstance(new Locale("ro", "RO")).format(user.getSalary());
-            salaryTextView.setText(formatBold("Salary: ", salaryFormatted));
-
-            // am formatat pozitia sa aiba fundalul colorat, continutul boldat, FONT diferit ca dimensiune si ICONITA SPECIFICA in funtie de pozitie
-            if (user.getPosition() != null) {
-                String positionTitle = user.getPosition().getTitle();
-
-                positionTextView.setText(formatBold("Position: ", positionTitle));
-                PositionAdapter.setPositionIcon(ivPositionIcon, positionTitle, this);
-                PositionAdapter.setPositionFontSize(positionTextView, positionTitle);
-                PositionAdapter.setPositionBackgroundColor(positionTextView, positionTitle, this);
-
-                if (user.getPosition().getDepartment() != null) {
-                    String departmentName = user.getPosition().getDepartment().getName();
-                    departmentTextView.setText(formatBold("Department: ", departmentName));
-                    DepartmentAdapter.setDepartmentColor(departmentTextView, departmentName, this);
-                } else {
-                    departmentTextView.setText("Department: N/A");
-                }
-            } else {
-                positionTextView.setText("Position: N/A");
-                departmentTextView.setText("Department: N/A");
-            }
+        User currentUser = UserSessionManager.getCurrentUser();
+        if (currentUser != null) {
+            firstNameTextView.setText("First Name: " + currentUser.getFirstName());
+            lastNameTextView.setText("Last Name: " + currentUser.getLastName());
+            emailTextView.setText("Email: " + currentUser.getEmail());
+            salaryTextView.setText("Salary: " + NumberFormat.getCurrencyInstance(new Locale("ro", "RO")).format(currentUser.getSalary()));
+        } else {
+            Toast.makeText(this, "User not found!", Toast.LENGTH_SHORT).show();
         }
     }
 }

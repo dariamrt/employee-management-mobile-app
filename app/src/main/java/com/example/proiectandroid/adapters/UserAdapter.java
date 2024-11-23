@@ -1,13 +1,10 @@
 package com.example.proiectandroid.adapters;
 
-import static com.example.proiectandroid.adapters.PositionAdapter.setPositionIcon;
-
 import android.content.Context;
 import android.content.Intent;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,29 +44,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         User user = users.get(position);
 
         holder.initialsTextView.setText(user.getFirstName().substring(0, 1) + user.getLastName().substring(0, 1));
-
         holder.salaryTextView.setText(formatSalary(user.getSalary()));
-        Log.d("UserAdapter", "womp womp" );
-        if (user.getPosition() != null) {
-            String positionTitle = user.getPosition().getTitle();
-            holder.positionTextView.setText(formatBold("Position: ", positionTitle));
 
-            PositionAdapter.setPositionFontSize(holder.positionTextView, positionTitle);
-            PositionAdapter.setPositionBackgroundColor(holder.positionTextView, positionTitle, context);
-
-            // pun iconita dupa text
-            setPositionIcon(holder.ivPositionIcon, positionTitle, context);
-
-            if (user.getPosition().getDepartment() != null) {
-                holder.departmentTextView.setText(formatBold("Department: ", user.getPosition().getDepartment().getName()));
-                DepartmentAdapter.setDepartmentColor(holder.departmentTextView, user.getPosition().getDepartment().getName(), context);
-            } else {
-                holder.departmentTextView.setText("Department: N/A");
-            }
-        } else {
-            holder.positionTextView.setText("Position: N/A");
-            holder.departmentTextView.setText("Department: N/A");
-        }
+        holder.positionTextView.setText(formatBold("Position: ", user.getPositionId() > 0 ? "Position " + user.getPositionId() : "N/A"));
+        holder.departmentTextView.setText("Department: N/A");
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, UserDetailsActivity.class);
@@ -81,6 +59,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @Override
     public int getItemCount() {
         return users.size();
+    }
+
+    public void updateUsers(List<User> newUsers) {
+        this.users = newUsers;
+        notifyDataSetChanged();
     }
 
     private String formatSalary(double salary) {
@@ -97,7 +80,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             salaryTextView = itemView.findViewById(R.id.salaryTextView);
             positionTextView = itemView.findViewById(R.id.positionTextView);
             departmentTextView = itemView.findViewById(R.id.departmentTextView);
-            ivPositionIcon = itemView.findViewById(R.id.ivPositionIcon); // Initialize ImageView
+            ivPositionIcon = itemView.findViewById(R.id.ivPositionIcon);
         }
     }
 
@@ -108,4 +91,3 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         return spannableString;
     }
 }
-

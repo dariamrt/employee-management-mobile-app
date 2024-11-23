@@ -1,10 +1,6 @@
 package com.example.proiectandroid.activities;
 
-import static com.example.proiectandroid.utils.UserManager.getUserByEmail;
-import static com.example.proiectandroid.utils.UserManager.getUserById;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,77 +9,48 @@ import android.widget.Spinner;
 import android.widget.AdapterView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proiectandroid.R;
+import com.example.proiectandroid.database.AppDatabase;
 import com.example.proiectandroid.models.Status;
 import com.example.proiectandroid.models.Task;
-import com.example.proiectandroid.models.User;
-import com.example.proiectandroid.utils.UserManager;
+import com.example.proiectandroid.utils.UserSessionManager;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TaskManagerActivity extends AppCompatActivity {
 
     private RecyclerView taskRecyclerView;
     private TaskAdapter taskAdapter;
-    private User currentUser;
+    private AppDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_manager);
 
-        currentUser = getCurrentUser();
+        database = AppDatabase.getInstance(getApplicationContext());
 
         taskRecyclerView = findViewById(R.id.taskListView);
         taskRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        List<Task> userTasks = getUserTasks(currentUser);
+        UserSessionManager sessionManager = new UserSessionManager(this);
+        sessionManager.checkLogin(getApplicationContext());
 
-        taskAdapter = new TaskAdapter(userTasks);
-        taskRecyclerView.setAdapter(taskAdapter);
+        if (UserSessionManager.getCurrentUser() != null) {
+            int currentUserId = UserSessionManager.getCurrentUser().getId();
+            List<Task> userTasks = database.getTaskDao().getTasksByAssignedUserId(currentUserId);
+
+            taskAdapter = new TaskAdapter(userTasks);
+            taskRecyclerView.setAdapter(taskAdapter);
+        }
 
         findViewById(R.id.floatingActionButton).setOnClickListener(v -> {
             Intent intent = new Intent(TaskManagerActivity.this, AddTaskActivity.class);
             startActivity(intent);
         });
-    }
-
-    private User getCurrentUser() {
-        SharedPreferences loginPrefs = getSharedPreferences("UserLoginPreferences", MODE_PRIVATE);
-        String crtUserId = loginPrefs.getString("currentUserId", "0");
-
-        return UserManager.getUserById(crtUserId);
-    }
-
-    private List<Task> getUserTasks(User currentUser) {
-        List<Task> allTasks = getAllTasks();
-        List<Task> userTasks = new ArrayList<>();
-
-        for (Task task : allTasks) {
-            if (task.getAssignedUser() != null && task.getAssignedUser().equals(currentUser)) {
-                userTasks.add(task);
-            }
-        }
-
-        return userTasks;
-    }
-
-    private List<Task> getAllTasks() {
-        List<Task> tasks = new ArrayList<>();
-        User dan = getUserByEmail("dp@gmail.com");
-        User ana = getUserByEmail("a.ionescu@hotmail.com");
-
-        tasks.add(new Task("Task 1", "Description 1", new Date(), Status.COMPLETED, dan));
-        tasks.add(new Task("Task 3", "Descriere 3", new Date(), Status.COMPLETED, dan));
-        tasks.add(new Task("Task 2", "Descriere 2", new Date(), Status.IN_PROGRESS, ana));
-
-        return tasks;
     }
 
     private class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
@@ -130,7 +97,8 @@ public class TaskManagerActivity extends AppCompatActivity {
                 statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                        task.setStatus(Status.valueOf(Status.values()[position].toString()));
+                        task.setStatus(Status.values()[position].toString());
+                        database.getTaskDao().updateTask(task);
                     }
 
                     @Override

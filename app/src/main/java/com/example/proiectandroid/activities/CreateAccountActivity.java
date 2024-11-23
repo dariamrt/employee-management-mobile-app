@@ -2,6 +2,7 @@ package com.example.proiectandroid.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,13 +12,13 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proiectandroid.R;
+import com.example.proiectandroid.database.AppDatabase;
 import com.example.proiectandroid.models.User;
-import com.example.proiectandroid.utils.UserManager;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
-    Button btnCreateAccount;
-    EditText etFirstName, etLastName, etEmail, etPassword, etConfirmPassword;
+    private Button btnCreateAccount;
+    private EditText etFirstName, etLastName, etEmail, etPassword, etConfirmPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,44 +33,49 @@ public class CreateAccountActivity extends AppCompatActivity {
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
 
         btnCreateAccount = findViewById(R.id.btnCreateAccount);
-        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String firstName = etFirstName.getText().toString();
-                String lastName = etLastName.getText().toString();
-                String email = etEmail.getText().toString();
-                String password = etPassword.getText().toString();
-                String confirmPassword = etConfirmPassword.getText().toString();
+        btnCreateAccount.setOnClickListener(v -> {
+            String firstName = etFirstName.getText().toString();
+            String lastName = etLastName.getText().toString();
+            String email = etEmail.getText().toString();
+            String password = etPassword.getText().toString();
+            String confirmPassword = etConfirmPassword.getText().toString();
 
-                // verific daca a completat campurile
-                if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-                    Toast.makeText(CreateAccountActivity.this,
-                            "Please fill all the fields!!!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // verific daca se matchuiesc parolele
-                if (!password.equals(confirmPassword)) {
-                    Toast.makeText(CreateAccountActivity.this,
-                            "Passwords don't match!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // creez un obiect user si il bag in lista folosind metoda din UserManager
-                User user = new User(firstName, lastName, email, password);
-                UserManager.addUser(user);
-
-
-//                // toast cu datele userului create -> pt testare l-am fct
-//                Toast.makeText(CreateAccountActivity.this,
-//                        "Account created: \n" + user.getFirstName() + "\n" + user.getLastName() + "\n" + user.getEmail(), Toast.LENGTH_LONG).show();
-
-                // acum trimit userul in main act sa-l afisez
-                Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
-                intent.putExtra("user", user);
-                startActivity(intent);
-                finish();
+            if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                Toast.makeText(CreateAccountActivity.this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            if (!password.equals(confirmPassword)) {
+                Toast.makeText(CreateAccountActivity.this, "Passwords don't match!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            User existingUser = AppDatabase.getInstance(getApplicationContext()).getUserDAO().getUserByEmail(email);
+            if (existingUser != null) {
+                Toast.makeText(CreateAccountActivity.this, "Email already exists!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            User user = new User(firstName, lastName, email, password, 1000, 1);
+            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+            Log.d("CreateAccountActivity", "First Name: " + firstName);
+            Log.d("CreateAccountActivity", "Last Name: " + lastName);
+            Log.d("CreateAccountActivity", "Email: " + email);
+
+            try {
+                db.getUserDAO().insertUser(user);
+                Log.d("CreateAccountActivity", "User created successfully with email: " + email);
+            } catch (Exception e) {
+                Log.e("CreateAccountActivity", "Error creating user: " + e.getMessage());
+                Toast.makeText(CreateAccountActivity.this, "Error creating account!", Toast.LENGTH_SHORT).show();
+            }
+
+
+
+            Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
+            finish();
         });
     }
 }

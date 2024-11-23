@@ -2,7 +2,6 @@ package com.example.proiectandroid.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proiectandroid.R;
+import com.example.proiectandroid.database.AppDatabase;
 import com.example.proiectandroid.models.User;
 import com.example.proiectandroid.utils.UserManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -34,41 +34,26 @@ public class AdminPanel extends AppCompatActivity {
         floatingActionButton = findViewById(R.id.floatingActionButton);
 
         userList = UserManager.getUsers();
-//        for(User user : userList){
-//            Log.e("AdminPanel", user.getFirstName());
-//            Toast.makeText(this, user.getLastName(), Toast.LENGTH_SHORT).show();
-//        }
-
-        if (!userList.isEmpty()) {
+        if (userList != null && !userList.isEmpty()) {
             ArrayAdapter<User> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userList);
             userListView.setAdapter(adapter);
         }
 
-        userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                User selectedUser = userList.get(position);
-                Intent intent = new Intent(AdminPanel.this, EditUserActivity.class);
-                intent.putExtra("userId", selectedUser.getId());
-                startActivity(intent);
-            }
+        userListView.setOnItemClickListener((parent, view, position, id) -> {
+            User selectedUser = userList.get(position);
+            Intent intent = new Intent(AdminPanel.this, EditUserActivity.class);
+            intent.putExtra("userId", selectedUser.getId());
+            startActivity(intent);
         });
 
-        userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                User selectedUser = userList.get(position);
-                Intent intent = new Intent(AdminPanel.this, EditUserActivity.class);
-                intent.putExtra("user", selectedUser);
-                startActivity(intent);
-            }
+        floatingActionButton.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminPanel.this, CreateAccountActivity.class);
+            startActivity(intent);
         });
-
     }
 
-
     @Override
-    protected void onResume() { // pt cand se intoarce in pagina din alte activitati
+    protected void onResume() {
         super.onResume();
         List<User> updatedUsers = UserManager.getUsers();
 
@@ -76,7 +61,7 @@ public class AdminPanel extends AppCompatActivity {
             boolean userExists = false;
 
             for (User existingUser : userList) {
-                if (existingUser.getId().equals(updatedUser.getId())) {
+                if (existingUser.getId() == updatedUser.getId()) {
                     userExists = true;
                     break;
                 }
@@ -88,5 +73,4 @@ public class AdminPanel extends AppCompatActivity {
         }
         ((ArrayAdapter) userListView.getAdapter()).notifyDataSetChanged();
     }
-
 }

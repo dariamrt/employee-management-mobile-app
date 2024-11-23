@@ -1,32 +1,44 @@
 package com.example.proiectandroid.models;
 
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
+@Entity(tableName = "tasks",
+        foreignKeys = @ForeignKey(
+                entity = User.class,
+                parentColumns = "id",
+                childColumns = "assignedUserId",
+                onDelete = ForeignKey.CASCADE
+        )
+)
 public class Task implements Serializable {
-    private String taskId;
+    @PrimaryKey (autoGenerate = true)
+    private int id;
     private String title;
     private String description;
-    private Date deadline;
-    private Status status;
-    private User assignedUser;  // am facut one to many ))
+    private String deadline;
+    private String status;
+    private int assignedUserId;  // am facut one to many ))
 
-    public Task(String title, String description, Date deadline, Status status, User assignedUser) {
-        this.taskId = UUID.randomUUID().toString();
+    public Task(String title, String description, String deadline, String status, int assignedUserId) {
         this.title = title;
         this.description = description;
         this.deadline = deadline;
         this.status = status;
-        this.assignedUser = assignedUser;
+        this.assignedUserId = assignedUserId;
     }
 
-    public String getTaskId() {
-        return taskId;
+    public int getId() {
+        return id;
     }
 
-    public void setTaskId(String taskId) {
-        this.taskId = taskId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -45,39 +57,39 @@ public class Task implements Serializable {
         this.description = description;
     }
 
-    public Date getDeadline() {
+    public String getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public User getAssignedUser() {
-        return assignedUser;
+    public int getAssignedUserId() {
+        return assignedUserId;
     }
 
-    public void setAssignedUser(User assignedUser) {
-        this.assignedUser = assignedUser;
+    public void setAssignedUserId(int assignedUserId) {
+        this.assignedUserId = assignedUserId;
     }
 
     @Override
     public String toString() {
         return "Task{" +
-                "taskId='" + taskId + '\'' +
+                "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", deadline=" + deadline +
-                ", status='" + status + '\'' +
-                ", assignedUser=" + assignedUser.getFirstName() + " " + assignedUser.getLastName() +
+                ", status=" + status +
+                ", assignedUserId=" + assignedUserId +
                 '}';
     }
 }

@@ -9,14 +9,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proiectandroid.R;
+import com.example.proiectandroid.database.AppDatabase;
 import com.example.proiectandroid.models.User;
-import com.example.proiectandroid.utils.UserManager;
 
 public class EditUserActivity extends AppCompatActivity {
 
     private EditText etFirstName, etLastName, etEmail, etPassword, etSalary;
     private Button btnSave;
     private User user;
+    private AppDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class EditUserActivity extends AppCompatActivity {
         etSalary = findViewById(R.id.etSalary);
         btnSave = findViewById(R.id.btnSave);
 
+        database = AppDatabase.getInstance(getApplicationContext());
         user = (User) getIntent().getSerializableExtra("user");
 
         if (user != null) {
@@ -68,7 +70,7 @@ public class EditUserActivity extends AppCompatActivity {
                 user.setPassword(password);
                 user.setSalary(salary);
 
-                UserManager.updateUser(user);
+                database.getUserDAO().updateUser(user);
 
                 Toast.makeText(EditUserActivity.this, "User updated", Toast.LENGTH_SHORT).show();
                 finish();

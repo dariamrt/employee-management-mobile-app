@@ -3,17 +3,19 @@ package com.example.proiectandroid.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
 import com.example.proiectandroid.activities.LoginPageActivity;
+import com.example.proiectandroid.database.AppDatabase;
 import com.example.proiectandroid.models.User;
 
 public class UserSessionManager {
-    // de modificat dupa ce implementez cu BD
+
     private static final String PREF_NAME = "user_session";
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
-    private static final String KEY_USER_EMAIL = "userEmail";
+    private static final String KEY_USER_ID = "userId";
 
     private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+    private static SharedPreferences.Editor editor;
     private Context context;
     private static User currentUser;
 
@@ -21,8 +23,8 @@ public class UserSessionManager {
         return currentUser;
     }
 
-    public static void setCurrentUser(User currentUser) {
-        UserSessionManager.currentUser = currentUser;
+    public static void setCurrentUser(User user) {
+        currentUser = user;
     }
 
     public UserSessionManager(Context context) {
@@ -31,40 +33,32 @@ public class UserSessionManager {
         editor = sharedPreferences.edit();
     }
 
-    // seteaza sesiunea userului ca activa + salv emailul
-    public void createUserLoginSession(String email) {
+    public void createUserLoginSession(User user, AppDatabase db) {
         editor.putBoolean(KEY_IS_LOGGED_IN, true);
-        editor.putString(KEY_USER_EMAIL, email);
+        editor.putInt(KEY_USER_ID, user.getId());
         editor.apply();
+        currentUser = db.getUserDAO().getUserById(user.getId());
     }
 
-    // verif dacă userul e logat
     public boolean isUserLoggedIn() {
         return sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false);
     }
 
-    // redir userul la LOGIN daca nu e logat
-    public void checkLogin() {
+    public void checkLogin(Context context) {
         if (!isUserLoggedIn()) {
-            Intent i = new Intent(context, LoginPageActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(i);
+            logoutUser(context);
+        } else {
+            int userId = sharedPreferences.getInt(KEY_USER_ID, -1);
+            currentUser = AppDatabase.getInstance(context).getUserDAO().getUserById(userId);
         }
     }
 
-    // get pt emailul userului autentificat
-    public String getUserEmail() {
-        return sharedPreferences.getString(KEY_USER_EMAIL, null);
-    }
-
-    // sterge sesiunea userului
-    public void logoutUser() {
+    public static void logoutUser(Context context) {
         editor.clear();
         editor.apply();
-
+        currentUser = null;
         Intent i = new Intent(context, LoginPageActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
     }
 }
-
