@@ -3,6 +3,7 @@ package com.example.proiectandroid.models;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -11,6 +12,9 @@ import java.util.List;
 public interface PositionDao {
     @Insert
     void insertPosition(Position position);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertPositions(List<Position> positions);
 
     @Query("SELECT id FROM POSITIONS WHERE title = :positionName LIMIT 1")
     int getPositionIdByName(String positionName);

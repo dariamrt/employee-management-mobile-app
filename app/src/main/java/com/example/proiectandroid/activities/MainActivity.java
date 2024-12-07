@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -79,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.itViewProfile) {
             Intent intentProfile = new Intent(MainActivity.this, UserDetailsActivity.class);
             startActivity(intentProfile);
+            return true;
+        } else if (id == R.id.itJson) {
+            Intent intentJson = new Intent(MainActivity.this, JsonHomeworkActivity.class);
+            startActivity(intentJson);
             return true;
         }
         return super.onOptionsItemSelected(item);

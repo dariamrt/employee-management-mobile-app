@@ -3,6 +3,7 @@ package com.example.proiectandroid.models;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -11,6 +12,9 @@ import java.util.List;
 public interface DepartmentDao {
     @Insert
     void insertDepartment(Department department);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertDepartments(List<Department> departments);
 
     @Query("SELECT * FROM departments")
     List<Department> getAllDepartments();

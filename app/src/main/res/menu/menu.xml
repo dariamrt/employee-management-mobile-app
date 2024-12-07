@@ -4,8 +4,8 @@
         android:id="@+id/itChangePassword"
         android:title="Change password" />
     <item
-        android:id="@+id/itSettings"
-        android:title="Settings" />
+        android:id="@+id/itJson"
+        android:title="Adauga din JSON" />
     <item
         android:id="@+id/itViewProfile"
         android:title="Profile info" />

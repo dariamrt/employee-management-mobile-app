@@ -3,6 +3,7 @@ package com.example.proiectandroid.models;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Update;
 import androidx.room.Query;
 
@@ -12,6 +13,9 @@ import java.util.List;
 public interface UserDao {
     @Insert
     void insertUser(User user);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertUsers(List<User> users);
 
     @Query("SELECT * FROM users")
     List<User> getAllUsers();

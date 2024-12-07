@@ -3,6 +3,7 @@ package com.example.proiectandroid.models;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -12,6 +13,9 @@ import java.util.List;
 public interface TaskDao {
     @Insert
     void insertTask(Task task);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertTasks(List<Task> tasks);
 
     @Query("SELECT * FROM tasks")
     List<Task> getAllTasks();
