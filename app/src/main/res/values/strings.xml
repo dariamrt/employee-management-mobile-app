@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">ProiectAndroid</string>
+    <string name="emailDeProba">john.doe@example.com</string>
+    <string name="parolaDeProba">password123</string>
+    <string name="btnDontHaveAnAccount">Don\'t have an account yet?</string>
+    <string name="btnLogin">Login</string>
+    <string name="tvEmail">Email:</string>
+    <string name="tvPassword">Password:</string>
+    <string name="tvLocation">Location:</string>
+    <string name="etHintLocation">Name</string>
+    <string name="etHintLocationType">Location type (office, deposit, etc)</string>
+    <string name="etHintCity">City</string>
+    <string name="btnAddLocation">Add location!</string>
+    <string name="btnShowLocations">Show locations!!</string>
+    <string name="tvAddItem">Add an item to the inventory!</string>
+    <string name="etItemNameHint">Item name</string>
+    <string name="etLocationId">Location\'s id</string>
+    <string name="btnAddItem">Add item!</string>
+    <string name="btnShowItems">Show items!</string>
 </resources>

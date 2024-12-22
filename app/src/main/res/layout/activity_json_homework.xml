@@ -1,58 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.JsonHomeworkActivity">
-
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#ffc8dd"
+    android:gravity="center">
 
     <Button
         android:id="@+id/btnAdaugaTaskDinJson"
-        android:layout_width="167dp"
-        android:layout_height="82dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Adauga task din JSON!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.065"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024" />
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#FF1493"/>
 
     <Button
         android:id="@+id/btnAdaugaDepartmentDinJson"
-        android:layout_width="169dp"
-        android:layout_height="84dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Adauga departament din JSON!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.185" />
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#FF1493"/>
 
     <Button
         android:id="@+id/btnAdaugaUserDinJson"
-        android:layout_width="177dp"
-        android:layout_height="76dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Adauga user din JSON!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.068"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#FF1493"/>
 
     <Button
         android:id="@+id/btnAdaugaPositionDinJson"
-        android:layout_width="174dp"
-        android:layout_height="81dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Adauga pozitie din JSON!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.36" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:backgroundTint="#FF1493"/>
+</LinearLayout>

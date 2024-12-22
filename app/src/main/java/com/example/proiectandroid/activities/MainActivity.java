@@ -84,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intentJson);
             return true;
         }
+        else if (id == R.id.itFireBase) {
+            Intent intentJson = new Intent(MainActivity.this, FirebaseCrudActivity.class);
+            startActivity(intentJson);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }

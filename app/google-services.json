@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "294260992387",
+    "project_id": "proiectandroidgestiunefirma",
+    "storage_bucket": "proiectandroidgestiunefirma.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294260992387:android:f43cc79b5d58d4af3ceeb6",
+        "android_client_info": {
+          "package_name": "com.example.proiectandroid"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGd2Fh5nvxDIO9eSic2pwb4Sk7-rE3RMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

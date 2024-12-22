@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffc8dd"
+
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tvLocation"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="2dp"/>
+
+        <EditText
+            android:id="@+id/etLocationName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/etHintLocation"/>
+
+        <EditText
+            android:id="@+id/etLocationType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/etHintLocationType"/>
+
+        <EditText
+            android:id="@+id/etLocationCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/etHintCity"/>
+
+        <Button
+            android:id="@+id/btnAfisareLocations"
+            android:layout_width="155dp"
+            android:layout_height="40dp"
+            android:text="@string/btnShowLocations"
+            android:backgroundTint="#FF1493"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="0.5dp"/>
+
+        <ListView
+            android:id="@+id/lvLocations"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="8dp"
+            android:background="#f0f0f0"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tvAddItem"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="2dp"/>
+
+        <EditText
+            android:id="@+id/etItemName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/etItemNameHint"/>
+
+        <EditText
+            android:id="@+id/etItemLocationId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/etLocationId"/>
+
+        <Button
+            android:id="@+id/btnAddItem"
+            android:layout_width="155dp"
+            android:layout_height="40dp"
+            android:text="@string/btnAddItem"
+            android:backgroundTint="#FF1493"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="0.5dp"/>
+
+        <ListView
+            android:id="@+id/lvItems"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="8dp"
+            android:background="#f0f0f0"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp"/>
+    </LinearLayout>
+</ScrollView>
