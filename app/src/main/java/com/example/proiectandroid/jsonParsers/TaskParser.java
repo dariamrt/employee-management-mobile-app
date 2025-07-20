@@ -1,4 +1,4 @@
-package com.example.proiectandroid.jsonChestii;
+package com.example.proiectandroid.jsonParsers;
 
 import com.example.proiectandroid.models.Task;
 

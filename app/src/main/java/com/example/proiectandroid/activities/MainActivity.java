@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intentProfile);
             return true;
         } else if (id == R.id.itJson) {
-            Intent intentJson = new Intent(MainActivity.this, JsonHomeworkActivity.class);
+            Intent intentJson = new Intent(MainActivity.this, AddToJsonActivity.class);
             startActivity(intentJson);
             return true;
         }

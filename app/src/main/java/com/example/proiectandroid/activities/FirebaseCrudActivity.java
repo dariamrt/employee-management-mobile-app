@@ -68,15 +68,39 @@ public class FirebaseCrudActivity extends AppCompatActivity {
     }
 
     private void addLocation() {
-        String name = etName.getText().toString();
-        String type = etType.getText().toString();
-        String city = etCity.getText().toString();
+        String name = etName.getText().toString().trim();
+        String type = etType.getText().toString().trim();
+        String city = etCity.getText().toString().trim();
+
+        if (name.isEmpty() || type.isEmpty() || city.isEmpty()) {
+            Toast.makeText(this, "Complete all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         firebaseService.insertLocation(new LocationFire(name, type, city));
+
+        etName.setText("");
+        etType.setText("");
+        etCity.setText("");
     }
 
     private void addItem() {
-        String name = etItemName.getText().toString();
-        Integer locationId = Integer.parseInt(etLocationId.getText().toString());
-        firebaseService.insertInventoryItem(new InventoryItemFire(name, locationId));
+        String name = etItemName.getText().toString().trim();
+        String locationIdText = etLocationId.getText().toString().trim();
+
+        if (name.isEmpty() || locationIdText.isEmpty()) {
+            Toast.makeText(this, "Complete all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            Integer locationId = Integer.parseInt(locationIdText);
+            firebaseService.insertInventoryItem(new InventoryItemFire(name, locationId));
+
+            etItemName.setText("");
+            etLocationId.setText("");
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Location ID must be a number", Toast.LENGTH_SHORT).show();
+        }
     }
 }

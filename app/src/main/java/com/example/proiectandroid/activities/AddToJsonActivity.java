@@ -2,7 +2,6 @@ package com.example.proiectandroid.activities;
 
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -13,11 +12,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.proiectandroid.R;
 import com.example.proiectandroid.database.AppDatabase;
-import com.example.proiectandroid.jsonChestii.DepartmentParser;
-import com.example.proiectandroid.jsonChestii.HttpsManager;
-import com.example.proiectandroid.jsonChestii.PositionParser;
-import com.example.proiectandroid.jsonChestii.TaskParser;
-import com.example.proiectandroid.jsonChestii.UserParser;
+import com.example.proiectandroid.jsonParsers.DepartmentParser;
+import com.example.proiectandroid.jsonParsers.HttpsManager;
+import com.example.proiectandroid.jsonParsers.PositionParser;
+import com.example.proiectandroid.jsonParsers.TaskParser;
+import com.example.proiectandroid.jsonParsers.UserParser;
 import com.example.proiectandroid.models.Department;
 import com.example.proiectandroid.models.Position;
 import com.example.proiectandroid.models.Task;
@@ -25,7 +24,7 @@ import com.example.proiectandroid.models.User;
 
 import java.util.List;
 
-public class JsonHomeworkActivity extends AppCompatActivity {
+public class AddToJsonActivity extends AppCompatActivity {
 
     private Button btnAdaugaDepartmentDinJson;
     private Button btnAdaugaPositionDinJson;

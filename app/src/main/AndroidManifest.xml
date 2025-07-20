@@ -42,7 +42,7 @@
             android:name=".activities.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.JsonHomeworkActivity"
+            android:name=".activities.AddToJsonActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginPageActivity"

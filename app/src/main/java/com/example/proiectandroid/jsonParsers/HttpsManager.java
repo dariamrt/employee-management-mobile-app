@@ -1,4 +1,4 @@
-package com.example.proiectandroid.jsonChestii;
+package com.example.proiectandroid.jsonParsers;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffc8dd"
-
     android:padding="16dp">
 
     <LinearLayout
@@ -23,29 +22,32 @@
         <EditText
             android:id="@+id/etLocationName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/etHintLocation"/>
+            android:layout_height="48dp"
+            android:hint="@string/etHintLocation"
+            android:padding="12dp"/>
 
         <EditText
             android:id="@+id/etLocationType"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/etHintLocationType"/>
+            android:layout_height="48dp"
+            android:hint="@string/etHintLocationType"
+            android:padding="12dp"/>
 
         <EditText
             android:id="@+id/etLocationCity"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/etHintCity"/>
+            android:layout_height="48dp"
+            android:hint="@string/etHintCity"
+            android:padding="12dp"/>
 
         <Button
-            android:id="@+id/btnAfisareLocations"
-            android:layout_width="155dp"
-            android:layout_height="40dp"
+            android:id="@+id/btnAddLocation"
+            android:layout_width="200dp"
+            android:layout_height="48dp"
             android:text="@string/btnShowLocations"
             android:backgroundTint="#FF1493"
             android:textColor="#FFFFFF"
-            android:layout_marginTop="0.5dp"/>
+            android:layout_marginTop="8dp"/>
 
         <ListView
             android:id="@+id/lvLocations"
@@ -68,23 +70,25 @@
         <EditText
             android:id="@+id/etItemName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/etItemNameHint"/>
+            android:layout_height="48dp"
+            android:hint="@string/etItemNameHint"
+            android:padding="12dp"/>
 
         <EditText
             android:id="@+id/etItemLocationId"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/etLocationId"/>
+            android:layout_height="48dp"
+            android:hint="@string/etLocationId"
+            android:padding="12dp"/>
 
         <Button
             android:id="@+id/btnAddItem"
-            android:layout_width="155dp"
-            android:layout_height="40dp"
+            android:layout_width="200dp"
+            android:layout_height="48dp"
             android:text="@string/btnAddItem"
             android:backgroundTint="#FF1493"
             android:textColor="#FFFFFF"
-            android:layout_marginTop="0.5dp"/>
+            android:layout_marginTop="8dp"/>
 
         <ListView
             android:id="@+id/lvItems"
@@ -94,5 +98,6 @@
             android:background="#f0f0f0"
             android:divider="@android:color/darker_gray"
             android:dividerHeight="1dp"/>
+
     </LinearLayout>
 </ScrollView>
